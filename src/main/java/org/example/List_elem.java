@@ -1,5 +1,7 @@
 package org.example;
 
+import java.lang.module.FindException;
+import java.net.BindException;
 import java.util.Iterator;
 
 public class List_elem<A> implements Iterable<A> {
@@ -56,27 +58,40 @@ public class List_elem<A> implements Iterable<A> {
         return buf;
     }
 
-    public void insert(A item, int index) {
-        ListItem<A> newItem=new ListItem<>();
-        ListItem<A> current= head;
-        newItem.data=item;
-        index=index-1;
-        if(index<0){
+    public void add(A item, int index) {
+        if (index == 0) {
+            addFirst(item);
+        } else {
+            insert(item, index);
+        }
+    }
+    public void add(A item) {
+        addEnd(item);
+    }
+
+    private void insert(A item, int index) {
+        ListItem<A> newItem = new ListItem<>();
+        ListItem<A> current = head;
+        newItem.data = item;
+        index = index - 1;
+        if (index < 0) {
             addFirst(item);
             return;
         }
-        for(int i =0;i!=index;i++){
-            current=current.next;
+        for (int i = 0; i != index; i++) {
+            current = current.next;
         }
-        ListItem<A>buf=current.next;
-        current.next=newItem;
-        newItem.next=buf;
+        ListItem<A> buf = current.next;
+        current.next = newItem;
+        newItem.next = buf;
     }
-    public ListItem<A> replace(A item,int index){
-        insert(item,index);
-        return delete(index+1);
+
+    public ListItem<A> replace(A item, int index) {
+        insert(item, index);
+        return delete(index + 1);
 
     }
+
     public void addFirst(A item) {
         ListItem<A> newItem = new ListItem<A>();
         newItem.data = item;
@@ -90,7 +105,7 @@ public class List_elem<A> implements Iterable<A> {
         }
     }
 
-    public void addEnd(A item) {
+    private void addEnd(A item) {
         ListItem<A> newItem = new ListItem<>();
         newItem.data = item;
         if (isEmpty()) {
