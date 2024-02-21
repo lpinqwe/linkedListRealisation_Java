@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.Iterator;
-import java.util.Objects;
 
 public class List_elem<A> implements Iterable<A> {
 
@@ -63,7 +62,7 @@ public class List_elem<A> implements Iterable<A> {
         newItem.data=item;
         index=index-1;
         if(index<0){
-            add_first(item);
+            addFirst(item);
             return;
         }
         for(int i =0;i!=index;i++){
@@ -78,7 +77,7 @@ public class List_elem<A> implements Iterable<A> {
         return delete(index+1);
 
     }
-    public void add_first(A item) {
+    public void addFirst(A item) {
         ListItem<A> newItem = new ListItem<A>();
         newItem.data = item;
         if (isEmpty()) {
